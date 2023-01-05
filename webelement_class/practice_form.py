@@ -4,6 +4,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 import time
 from selenium.common.exceptions import *
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.ui import Select
 
 
 HOST = 'https://demoqa.com/automation-practice-form'
@@ -26,8 +27,10 @@ try:
     hobbies_reading = 'hobbies-checkbox-2'
     upload_pic_input = 'uploadPicture'
     address_textarea = 'currentAddress'
-    city_list = 'react-select-3-input'
-    state_list = 'react-select-4-input'
+    state_list = 'state'
+    state_input = 'react-select-3-input'
+    city_list = 'city'
+    city_input = 'react-select-4-input'
     submit_button = 'submit'
     confirmation_msg = 'example-modal-sizes-title-lg'
     close_cm_button = 'closeLargeModal'
@@ -35,21 +38,55 @@ try:
     # Steps
     driver.get(HOST)
 # enter first_name = 'John', last_name='Doe', enter email address 'jdoe@gmail.com
+    first_name = 'John'
+    last_name = 'Doe'
+    email = 'jdoe@gmail.com'
+    driver.find_element(By.ID, fn_input).send_keys(first_name)
+    driver.find_element(By.ID, ln_input).send_keys(last_name)
+    driver.find_element(By.ID, email_input).send_keys(email)
+
 # select radio button Gender = 'Male'
+    driver.find_element(By.ID,gender_male).click()
 # Enter mobile number 987654321
+    mobile_number = '9876543210'
+    driver.find_element(By.ID, mobile_number_input).send_keys(mobile_number)
 # enter dateOfBirth = 27 Nov 2008
+    date_of_birth = '16 Sep 2008'
+    driver.find_element(By.ID, date_of_birth_input).send_keys(date_of_birth)
 # enter subjects = 'selenium forms testing'
 # select checkboxes, select Sports, Reading
+    driver.find_element(By.ID, hobbies_sp).click()
+    driver.find_element(By.ID, hobbies_reading).click()
 # (optional) upload picture
-# enter message in text_area = ' 2906 Shell Road, 12224'
-# check if City list is enabled
+# enter message in text_area = '2906 Shell Road, 12224'
+    address = '2906 Shell Road, 12224'
+    driver.find_element(By.ID, address_textarea).send_keys(address)
+# check if State list is enabled
+    print(f'is State list enabled? {driver.find_element(By.ID,state_list).is_enabled()}')
 # select state = NCR
+    state_select = driver.find_element(By.ID, state_input)
+    drop_down_select = Select(state_select)
+    drop_down_select.select_by_visible_text('NCR')
 # check if City list is enabled
+    print(f'is city list enabled? {driver.find_element(By.ID, city_list).is_enabled()}')
 # select city = Delhi
+    city_select = driver.find_element(By.ID, city_input)
+    drop_down_select = Select(city_select)
+    drop_down_select.select_by_index(1)
 # check if Gender = Male is selected
+    print(f'is gender male selected? {driver.find_element(By.ID,gender_male).is_selected()}')
 # check if Sports hobbies is selected
+    print(f'is Sports check box selected? {driver.find_element(By.ID, hobbies_sp).is_selected()}')
 # click submit
+    driver.find_element(By.ID, submit_button).click()
 # veryfy Thanks for submitting the form message
+    print(driver.find_element(By.ID, confirmation_msg).text)
+    # click on Pop up message to close
+    driver.find_element(By.ID, close_cm_button).click()
+
+except Exception as err:
 
 
-    first_name = driver.find_element()
+
+
+
