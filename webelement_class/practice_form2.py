@@ -1,7 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-from webdriver_manager.chrome import ChromeDriverManager
+# from webdriver_manager.chrome import ChromeDriverManager
 import time
 from selenium.common.exceptions import *
 from selenium.webdriver.chrome.options import Options
@@ -14,7 +14,7 @@ chrome_options = Options()
 chrome_options.add_experimental_option('detach', True)
 # remove add that is blocking view
 chrome_options.add_experimental_option('excludeSwitches', ['diable-popup-blocking'])
-driver = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
+driver = webdriver.Chrome(executable_path='C:\selenium2\drivers\geckodriver.exe', options=chrome_options)
 driver.implicitly_wait(10)
 driver.maximize_window()
 
