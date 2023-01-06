@@ -13,7 +13,7 @@ HOST = 'https://demoqa.com/automation-practice-form'
 chrome_options = Options()
 chrome_options.add_experimental_option('detach', True)
 # remove add that is blocking view
-chrome_options.add_experimental_option('excludeSwitches', ['diable-popup-blocking'])
+# chrome_options.add_experimental_option('excludeSwitches', ['diable-popup-blocking'])
 driver = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
 driver.implicitly_wait(10)
 driver.maximize_window()
@@ -41,7 +41,7 @@ try:
     # Steps
     driver.get(HOST)
     # how to zoom out
-    driver.execute_script("document.body.style.zoom='0.9'")
+    # driver.execute_script("document.body.style.zoom='0.9'")
 #     or
 #     driver.execute_script("document.body.style.zoom='90%'")
 # enter first_name = 'John', last_name='Doe', enter email address 'jdoe@gmail.com
@@ -92,7 +92,9 @@ try:
 # check if Sports hobbies is selected
     print(f'is Sports check box selected? {driver.find_element(By.XPATH, hobbies_sp_xpath).is_selected()}')
 # click submit
-    driver.find_element(By.ID, submit_button).click()
+    submit_button=driver.find_element(By.ID, submit_button)
+    driver.execute_script('arguments[0].scrollIntoView();', submit_button)
+    driver.execute_script('arguments[0].click();', submit_button)
 # veryfy Thanks for submitting the form message
     print(driver.find_element(By.ID, confirmation_msg).text)
     print(f'is Confirmation message displayed?{driver.find_element(By.ID, confirmation_msg).is_displayed()}')
