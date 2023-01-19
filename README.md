@@ -69,3 +69,18 @@ https://www.guru99.com/locators-in-selenium-ide.html
 
 # Demo automation site Mercury Tours:
 https://demo.guru99.com/test/newtours/register.php
+
+
+### WebElement class: Alerts
+
+''' python
+'''
+# switct to alert
+alert = driver.switch_to.alert()
+
+# get the text from alert 
+alert_text = alert.text  #text is a property
+#methods 
+alert.accept() #clicking OK button 
+alert.dismiss() #click Cancel button 
+alert.send_keys() #enter a text on the alert box
