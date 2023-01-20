@@ -3,6 +3,8 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 chrome_options = Options()
 chrome_options.add_experimental_option('detach', True)
@@ -27,42 +29,65 @@ try:
     # Steps
     driver.get(HOST)
     time.sleep(5)
-    # click alert 1 button, click ok button to close the alert box
-    button_elem = driver.find_element(By.ID, alert_notify)
-    button_elem.click()
+
+    print('# click alert 1 button, click ok button to close the alert box')
+    driver.find_element(By.ID, alert_notify).click()
     time.sleep(2)
-    click_me = driver.switch_to.alert
-    print(click_me.text)
+    alert = driver.switch_to.alert
+    print(alert.text)
     click_me.accept()
+    print('click alert 1 button, click ok button to close the alert box')
 
     # click alert 2 button, click OK button, verify ok button is clicked in the result text
+    try:
+        button_elem = driver.find_element(By.ID, alert_timer)
+        button_elem.click()
+
+        WebDriverWait(driver, 10).until(EC.alert_is_present())
+        alert = driver.switch_to.alert
+        alert.accept()
+        print(alert.text)
+    except Exception as err:
+        print(err)
+        print('no alert')
+
 
     # click alert 3 button, confirm the result, verify ok button is clicked in the result text
-    # button = driver.find_element(By.ID, alert_confirm)
-    # button.click()
-    # time.sleep(2)
-    # click_me = driver.switch_to.alert
-    # click_me.accept()
-    # confirm_result = driver.find_element(By.ID, confirm_result)
-    # print(confirm_result.text)
+    try:
+        button = driver.find_element(By.ID, alert_confirm)
+        button.click()
+        time.sleep(2)
+        click_me = driver.switch_to.alert
+        click_me.accept()
+        confirm_result = driver.find_element(By.ID, confirm_result)
+    except Exception as err:
+        print(err)
+        print('no such element')
+    print(confirm_result.text)
+
     # click alert 3 button, dismiss the result, verify Cancel button is clicked in the result text
-    button = driver.find_element(By.ID, alert_confirm)
-    button.click()
-    time.sleep(2)
-    click_me = driver.switch_to.alert
-    click_me.dismiss()
-    confirm_result = driver.find_element(By.ID, confirm_result)
+    try:
+        button = driver.find_element(By.ID, alert_confirm)
+        button.click()
+        time.sleep(2)
+        click_me = driver.switch_to.alert
+        click_me.dismiss()
+        confirm_result = driver.find_element(By.ID, confirm_result)
+    except Exception as err:
+        print(err)
+        print('no such element')
     print(confirm_result.text)
     # click alert 4 button, input the alert_input message, verify alert_input message in result text
+
+    # click alert 4 button, input the alert_input, click OK button, verify alert_input message in the result text
     button = driver.find_element(By.ID, alert_prompt)
-    button.send_keys(alert_input)
     button.click()
     time.sleep(2)
-    click_me = driver.switch_to.alert
-    click_me.dismiss()
+    alert = driver.switch_to.alert
+    alert.send_keys(alert_input)
+    alert.accept()
     confirm_result = driver.find_element(By.ID, confirm_result)
     print(confirm_result.text)
-    # click alert 4 button, input the alert_input, click OK button, verify alert_input message in the result text
     # click alert 4 button, input the alert_input, dismiss the alert, verify alert_input message not in the result text
 
 

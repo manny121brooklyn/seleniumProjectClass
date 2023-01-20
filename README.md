@@ -76,7 +76,7 @@ https://demo.guru99.com/test/newtours/register.php
 ''' python
 '''
 # switct to alert
-alert = driver.switch_to.alert()
+alert = driver.switch_to.alert
 
 # get the text from alert 
 alert_text = alert.text  #text is a property
