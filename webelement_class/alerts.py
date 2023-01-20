@@ -12,6 +12,7 @@ chrome_options.add_experimental_option('detach', True)
 HOST = 'https://demoqa.com/alerts'
 
 driver = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
+driver.maximize_window()
 
 try:
     # Input Data
