@@ -34,63 +34,70 @@ try:
     driver.find_element(By.ID, alert_notify).click()
     time.sleep(2)
     alert = driver.switch_to.alert
-    print(alert.text)
-    click_me.accept()
-    print('click alert 1 button, click ok button to close the alert box')
+    print(f"Text on the alert: '{alert.text}'")
+    alert.accept()
+    print(f'..........................................................')
 
-    # click alert 2 button, click OK button, verify ok button is clicked in the result text
+
+    print('# click alert 2 button, click OK button, verify ok button is clicked in the result text')
     try:
-        button_elem = driver.find_element(By.ID, alert_timer)
-        button_elem.click()
-
+        driver.find_element(By.ID, alert_timer).click()
         WebDriverWait(driver, 10).until(EC.alert_is_present())
         alert = driver.switch_to.alert
-        alert.accept()
         print(alert.text)
+        alert.accept()
+        # print(f'Text on the alert: {alert.text}')
     except Exception as err:
         print(err)
         print('no alert')
+    print(f'..........................................................')
 
 
-    # click alert 3 button, confirm the result, verify ok button is clicked in the result text
-    try:
-        button = driver.find_element(By.ID, alert_confirm)
-        button.click()
-        time.sleep(2)
-        click_me = driver.switch_to.alert
-        click_me.accept()
-        confirm_result = driver.find_element(By.ID, confirm_result)
-    except Exception as err:
-        print(err)
-        print('no such element')
-    print(confirm_result.text)
-
-    # click alert 3 button, dismiss the result, verify Cancel button is clicked in the result text
-    try:
-        button = driver.find_element(By.ID, alert_confirm)
-        button.click()
-        time.sleep(2)
-        click_me = driver.switch_to.alert
-        click_me.dismiss()
-        confirm_result = driver.find_element(By.ID, confirm_result)
-    except Exception as err:
-        print(err)
-        print('no such element')
-    print(confirm_result.text)
-    # click alert 4 button, input the alert_input message, verify alert_input message in result text
-
-    # click alert 4 button, input the alert_input, click OK button, verify alert_input message in the result text
-    button = driver.find_element(By.ID, alert_prompt)
-    button.click()
+    print('# click alert 3 button, confirm the result, verify ok button is clicked in the result text')
+    driver.find_element(By.ID, alert_confirm).click()
     time.sleep(2)
     alert = driver.switch_to.alert
+    print(f'Text on alert:{alert.text}')
+    alert.accept()
+    result_msg = driver.find_element(By.ID, confirm_result).text
+    print(f"Result message: '{result_msg}'")
+    print(f'..........................................................')
+
+
+    print('# click alert 3 button, dismiss the result, verify Cancel button is clicked in the result text')
+    driver.find_element(By.ID, alert_confirm).click()
+    time.sleep(2)
+    click_me = driver.switch_to.alert
+    print(f'Text on alert:{alert.text}')
+    click_me.dismiss()
+    result_msg = driver.find_element(By.ID, confirm_result)
+    print(f"Message on alert: '{result_msg.text}'")
+    print(f'..........................................................')
+
+    print('# click alert 4 button, input the alert_input, click OK button, verify alert_input message in the result text')
+    driver.find_element(By.ID, alert_prompt).click()
+    time.sleep(2)
+    alert = driver.switch_to.alert
+    print(f"Text on the alert: '{alert.text}'")
     alert.send_keys(alert_input)
     alert.accept()
-    confirm_result = driver.find_element(By.ID, confirm_result)
-    print(confirm_result.text)
-    # click alert 4 button, input the alert_input, dismiss the alert, verify alert_input message not in the result text
+    result_msg = driver.find_element(By.ID, prompt_result)
+    print(f"Result message: '{result_msg.text}'")
+    print(f'..........................................................')
+    time.sleep(3)
 
 
+    print('# click alert 4 button, input the alert_input, dismiss the alert, verify alert_input message not in the result text')
+    driver.find_element(By.ID, alert_prompt).click()
+    time.sleep(2)
+    alert = driver.switch_to.alert
+    print(f"Text on the alert: '{alert.text}'")
+    # alert.send_keys(alert_input)
+    alert.dismiss()
+    # result_msg = driver.find_element(By.ID, prompt_result)
+    # print(f"Result message: '{result_msg.text}'")
+    print(f'..........................................................')
+    time.sleep(3)
 
 except Exception as err:
     time.sleep(2)
@@ -104,4 +111,4 @@ except (NoSuchElementException, TimeoutException) as err:
 
 finally:
     driver.quit()
-    print('Test completed')
+    print('Alert Test completed')
