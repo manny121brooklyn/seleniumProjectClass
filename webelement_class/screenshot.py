@@ -54,14 +54,15 @@ except (FileNotFoundError, ZeroDivisionError) as err:
     time.sleep(2)
     print('Python Exception: test failed with the following exception.')
     print(err)
-    driver.save_screenshot(screenshot_dir + 'dragdrop4.png')
+    driver.save_screenshot(screenshot_dir + 'pythonException.png')
 
-except Exception as err:
+except (NoSuchElementException, TimeoutException) as err:
     time.sleep(2)
     print('Selenium Exception: test failed with the following exception')
     print(err)
-    driver.save_screenshot(screenshot_dir+'dragdrop5.png')
+    driver.save_screenshot(screenshot_dir+'seleniumException.png')
 
 finally:
+    # close all tabs
     driver.quit()
     print('Test completed')
