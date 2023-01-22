@@ -33,7 +33,7 @@ try:
     # click on element and hold it, pause 5 seconds
     # action.click_and_hold(element).pause(5).perform()
     # click on element and hold it, pause for 5 seconds, and release it.
-    action.click_and_hold(element).pause(5).release(on_element=element)
+    action.click_and_hold(element).pause(5).release(on_element=element).perform()
     time.sleep(2)
     # verify web element clicked and held
     print(driver.find_element(By.LINK_TEXT, name_locator).text)
