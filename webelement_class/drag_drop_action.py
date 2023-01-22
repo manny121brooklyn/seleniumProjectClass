@@ -37,9 +37,9 @@ try:
 
     print('# drag and drop the object into the box')
     action = ActionChains(driver)
-    action.drag_and_drop(source, target).perform()
-    time.sleep(2)
-    # action.click_and_hold(source).release(target).perform()
+    # action.drag_and_drop(source, target).perform()
+    # time.sleep(2)
+    action.click_and_hold(source).release(target).perform()
     # action.click_and_hold(source).pause(2).release(target).perform()
 
 
